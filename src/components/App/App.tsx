@@ -21,20 +21,20 @@ export default function App(): JSX.Element {
     setError(null);
 
     try {
-      const results = await fetchMovies({ query }); // <-- тепер results — це Movie[]
+  const results = await fetchMovies({ query });
 
-      if (!results || results.length === 0) {
-        toast('No movies found for your request.');
-        setMovies([]);
-      } else {
-        setMovies(results);
-      }
-    } catch (err) {
-      setError('There was an error fetching movies.');
-      toast.error('There was an error fetching movies.');
-    } finally {
-      setLoading(false);
-    }
+  if (!results || results.length === 0) {
+    toast('No movies found for your request.');
+    setMovies([]);
+  } else {
+    setMovies(results);
+  }
+} catch (err) {
+  setError('There was an error fetching movies.');
+  toast.error('There was an error fetching movies.');
+} finally {
+  setLoading(false);
+}
   };
   return (
     <div className={styles.app}>
