@@ -14,7 +14,7 @@ export default function MovieModal({ movie, onClose }: MovieModalProps): JSX.Ele
   const backdropRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    // Disable body scroll
+  
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
 

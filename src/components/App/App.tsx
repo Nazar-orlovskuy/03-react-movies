@@ -16,7 +16,7 @@ export default function App(): JSX.Element {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const handleSearch = async (query: string) => {
-    // when new search — clear previous collection
+
     setMovies([]);
     setError(null);
 

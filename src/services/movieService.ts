@@ -43,7 +43,7 @@ export async function fetchMovies(
   });
 }
 
-/** Utility to build image path */
+
 export function makeImagePath(path: string | null, size: 'w500' | 'original' = 'w500') {
   if (!path) return '';
   return `https://image.tmdb.org/t/p/${size}${path}`;

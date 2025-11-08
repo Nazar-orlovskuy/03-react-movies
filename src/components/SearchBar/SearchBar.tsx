@@ -10,14 +10,14 @@ export default function SearchBar({ onSubmit }: SearchBarProps): JSX.Element {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Form Actions handled here
+    e.preventDefault(); 
     const value = inputRef.current?.value.trim() ?? '';
     if (!value) {
       toast('Please enter your search query.');
       return;
     }
     onSubmit(value);
-    // Optionally clear input: inputRef.current!.value = '';
+    
   };
 
   return (
