@@ -20,10 +20,9 @@ export default function App(): JSX.Element {
     setMovies([]);
     setError(null);
 
-    setLoading(true);
     try {
-      const response = await fetchMovies({ query });
-      const results = response.data.results;
+      const results = await fetchMovies({ query }); // <-- тепер results — це Movie[]
+
       if (!results || results.length === 0) {
         toast('No movies found for your request.');
         setMovies([]);
@@ -37,7 +36,6 @@ export default function App(): JSX.Element {
       setLoading(false);
     }
   };
-
   return (
     <div className={styles.app}>
       <SearchBar onSubmit={handleSearch} />
