@@ -1,4 +1,4 @@
-import React, { type FormEvent, JSX, useRef } from 'react';
+import React, { JSX } from 'react';
 import toast from 'react-hot-toast';
 import styles from './SearchBar.module.css';
 
@@ -7,18 +7,16 @@ interface SearchBarProps {
 }
 
 export default function SearchBar({ onSubmit }: SearchBarProps): JSX.Element {
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  async function handleAction(formData: FormData) {
+    const query = formData.get('query')?.toString().trim() ?? '';
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); 
-    const value = inputRef.current?.value.trim() ?? '';
-    if (!value) {
+    if (!query) {
       toast('Please enter your search query.');
       return;
     }
-    onSubmit(value);
-    
-  };
+
+    onSubmit(query);
+  }
 
   return (
     <header className={styles.header}>
@@ -32,7 +30,8 @@ export default function SearchBar({ onSubmit }: SearchBarProps): JSX.Element {
           Powered by TMDB
         </a>
 
-        <form className={styles.form} onSubmit={handleSubmit}>
+        {/* НОВИЙ ПІДХІД: атрибут action */}
+        <form className={styles.form} action={handleAction}>
           <input
             className={styles.input}
             type="text"
@@ -40,7 +39,6 @@ export default function SearchBar({ onSubmit }: SearchBarProps): JSX.Element {
             autoComplete="off"
             placeholder="Search movies..."
             autoFocus
-            ref={inputRef}
           />
           <button className={styles.button} type="submit">
             Search

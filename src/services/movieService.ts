@@ -1,9 +1,9 @@
-import axios, { type AxiosResponse } from 'axios';
+import axios from 'axios';
 import type { Movie } from '../types/movie';
 
 const BASE_URL = 'https://api.themoviedb.org/3';
 
-//Отримуємо ключ із .env
+// Отримуємо ключ із .env
 const myKey = import.meta.env.VITE_API_KEY as string | undefined;
 
 if (!myKey) {
@@ -31,20 +31,31 @@ interface TMDBSearchResponse {
   total_results: number;
 }
 
+/**
+ * Пошук фільмів через TMDB API.
+ * Повертає лише дані з results.
+ */
 export async function fetchMovies(
   params: FetchMoviesParams
-): Promise<AxiosResponse<TMDBSearchResponse>> {
-  return axiosInstance.get<TMDBSearchResponse>('/search/movie', {
+): Promise<Movie[]> {
+  const response = await axiosInstance.get<TMDBSearchResponse>('/search/movie', {
     params: {
       query: params.query,
       page: params.page ?? 1,
       include_adult: params.include_adult ?? false,
     },
   });
+
+  return response.data.results;
 }
 
-
-export function makeImagePath(path: string | null, size: 'w500' | 'original' = 'w500') {
+/**
+ * Створює повний шлях до зображення TMDB.
+ */
+export function makeImagePath(
+  path: string | null,
+  size: 'w500' | 'original' = 'w500'
+): string {
   if (!path) return '';
   return `https://image.tmdb.org/t/p/${size}${path}`;
 }
